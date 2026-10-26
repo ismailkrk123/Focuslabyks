@@ -1,0 +1,6 @@
+{
+  "name": "FocusLab - Sıvı Cam Odak & Görev Platformu",
+  "description": "iOS Liquid Glass estetiğinde akıllı görev kutuları, pomodoro, sanal kütüphane, YKS deneme takipçisi ve büyüme ormanı.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

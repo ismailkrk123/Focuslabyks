@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile containing academic goals, field, focus stats and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "format": "email", "maxLength": 200 },
+        "targetGoal": { "type": "string", "maxLength": 100 },
+        "targetExamRank": { "type": "string", "maxLength": 50 },
+        "targetDepartment": { "type": "string", "maxLength": 100 },
+        "yksField": { "type": "string", "enum": ["Sayısal", "Eşit Ağırlık", "Sözel", "Dil"] },
+        "totalFocusMinutes": { "type": "number" },
+        "treePoints": { "type": "number" },
+        "roomCode": { "type": "string", "maxLength": 20 },
+        "themeMode": { "type": "string", "enum": ["dark", "light"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "name", "email", "yksField"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Study task, event, or to-do box assigned to the user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "category": { "type": "string", "enum": ["task", "event", "todo"] },
+        "completed": { "type": "boolean" },
+        "color": { "type": "string", "maxLength": 50 },
+        "pillColor": { "type": "string", "maxLength": 50 },
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "durationMinutes": { "type": "number" },
+        "scheduledTime": { "type": "string", "maxLength": 10 },
+        "date": { "type": "string", "maxLength": 20 },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "ownerId", "title", "completed", "category", "date"]
+    },
+    "Deneme": {
+      "title": "Deneme",
+      "description": "Practice exam result record (TYT or AYT) with net scores",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 200 },
+        "type": { "type": "string", "enum": ["TYT", "AYT"] },
+        "date": { "type": "string", "maxLength": 20 },
+        "totalQuestions": { "type": "number" },
+        "totalNet": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "ownerId", "title", "type", "date", "totalNet"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profile document storing personal study configuration"
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "User study and practice tasks"
+    },
+    "/users/{userId}/denemeler/{denemeId}": {
+      "schema": { "$ref": "#/entities/Deneme" },
+      "description": "User mock exam score records"
+    }
+  }
+}
